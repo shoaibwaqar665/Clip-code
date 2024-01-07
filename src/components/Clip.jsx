@@ -35,13 +35,12 @@ const ClipboardExample = () => {
 				/>
 				<div className="absolute top-0 right-0 mt-2 mr-2 flex items-center">
 					<button
-						className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded mr-2"
+						className=" mr-2"
 						onClick={handleCopyToClipboard}
 					>
 						<FaCopy />
 					</button>
 					<button
-						className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"
 						onClick={handlePasteFromClipboard}
 					>
 						<FaPaste />
