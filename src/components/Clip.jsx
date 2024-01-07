@@ -27,15 +27,10 @@ const ClipboardExample = () => {
 	};
 	return (
 		<div className="relative flex flex-col items-center justify-center h-screen">
-			<div className="relative w-2/4 h-2/4 mb-2 overflow-y-auto scrollbar-thin scrollbar-thumb-blue-500 scrollbar-track-gray-200">
-				<textarea
-					className="bg-slate-200 text-black font-semibold border border-gray-500 rounded-lg p-2 w-full h-full"
-					value={copiedText}
-					onChange={(e) => setCopiedText(e.target.value)}
-				/>
+			<div className="relative w-2/4 h-2/4 mb-2 ">
 				<div className="absolute top-0 right-0 mt-2 mr-2 flex items-center">
 					<button
-						className=" mr-2"
+						className="mr-2"
 						onClick={handleCopyToClipboard}
 					>
 						<FaCopy />
@@ -46,6 +41,11 @@ const ClipboardExample = () => {
 						<FaPaste />
 					</button>
 				</div>
+				<textarea
+					className="bg-slate-200 text-black font-semibold border border-gray-500 rounded-lg p-2 w-full h-full mt-8 scrollbar-thin scrollbar-thumb-blue-500 scrollbar-track-gray-200"
+					value={copiedText}
+					onChange={(e) => setCopiedText(e.target.value)}
+				/>
 			</div>
 		</div>
 	);
