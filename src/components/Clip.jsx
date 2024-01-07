@@ -40,10 +40,10 @@ const ClipboardExample = () => {
 				/>
 				<div className="absolute top-0 right-0 mt-16 mr-2 flex items-center">
 					<button className="mr-2" onClick={handleCopyToClipboard}>
-						<FaCopy />
+						<FaCopy  title='Copy'/>
 					</button>
 					<button onClick={handlePasteFromClipboard}>
-						<FaPaste />
+						<FaPaste  title='Paste'/>
 					</button>
 				</div>
 				<textarea
