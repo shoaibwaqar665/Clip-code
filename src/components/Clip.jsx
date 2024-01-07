@@ -32,32 +32,38 @@ const ClipboardExample = () => {
 		}
 	};
 
-	const openModal = () => {
-		if (titleClicked) {
-			setIsModalOpen(true);
-		} else {
-			setIsModalOpen(true);
-			setTitleClicked(true);
-		}
-	};
+	const openModal = () => setIsModalOpen(true);
 
 	const closeModal = () => {
 		setIsModalOpen(false);
 		// Update entered title when the modal is closed
 		setEnteredTitle(title);
+		// Reset titleClicked state
+		setTitleClicked(false);
 	};
 
 	const handleTitleClick = () => {
-		if (enteredTitle) {
-			setIsModalOpen(true);
-		} else {
-			openModal();
-		}
+		// If entered title is clicked, open the current modal; otherwise, open a new modal
+		setTitleClicked(true);
+		openModal();
+	};
+
+	const openNewModal = () => {
+		// Reset modal state for a new modal
+		setTitle('');
+		setCopiedText('');
+		setIsModalOpen(true);
 	};
 
 	return (
 		<div className="relative flex flex-col items-center justify-center h-screen">
-			<button onClick={handleTitleClick}>Open Modal</button>
+			{/* Display the entered title outside the modal */}
+			{enteredTitle && (
+				<div className="mt-4" onClick={handleTitleClick} style={{ cursor: 'pointer' }}>
+					Entered Title: {enteredTitle}
+				</div>
+			)}
+			<button onClick={openNewModal}>Open New Modal</button>
 			<Modal
 				isOpen={isModalOpen}
 				onRequestClose={closeModal}
@@ -98,8 +104,6 @@ const ClipboardExample = () => {
 					/>
 				</div>
 			</Modal>
-			{/* Display the entered title outside the modal */}
-			{enteredTitle && <div className="mt-4">Entered Title: {enteredTitle}</div>}
 		</div>
 	);
 };
