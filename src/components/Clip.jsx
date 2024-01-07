@@ -47,7 +47,6 @@ const ClipboardExample = () => {
 						margin: 'auto', // Center the modal horizontally
 						display: 'flex',
 						flexDirection: 'column',
-						justifyContent: 'center',
 					},
 				}}
 			>
@@ -55,7 +54,7 @@ const ClipboardExample = () => {
 					<input
 						type="text"
 						placeholder="Enter the title"
-						className="bg-slate-200 text-black font-semibold border border-gray-500 rounded-lg p-2 w-full mb-8"
+						className="bg-slate-200 text-black font-semibold border border-gray-500 rounded-lg p-2 w-full mb-4" // Reduce margin-bottom
 						value={title}
 						onChange={(e) => setTitle(e.target.value)}
 					/>
