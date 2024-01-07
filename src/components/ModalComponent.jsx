@@ -24,6 +24,7 @@ const ModalContent = ({ title, setTitle, copiedText, setCopiedText, handleCopyTo
 				placeholder="Enter the text"
 				value={copiedText}
 				onChange={(e) => setCopiedText(e.target.value)}
+				readOnly // Add the readOnly attribute here
 			/>
 		</div>
 	);
