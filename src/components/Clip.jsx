@@ -26,23 +26,27 @@ const ClipboardExample = () => {
 		}
 	};
 	return (
-		<div className="flex flex-col items-center justify-center h-screen">
-			<textarea
-				className="bg-slate-200 text-black font-semibold border border-gray-500 rounded-lg p-2 w-2/4 h-2/4 mb-2 overflow-y-auto scrollbar-thin scrollbar-thumb-blue-500 scrollbar-track-gray-200 "
-				value={copiedText}
-				onChange={(e) => setCopiedText(e.target.value)}
-			/>
-			<div className="flex flex-col items-center">
-				<button
-					onClick={handleCopyToClipboard}
-				>
-					<FaCopy />
-				</button>
-				<button
-					onClick={handlePasteFromClipboard}
-				>
-					<FaPaste />
-				</button>
+		<div className="relative flex flex-col items-center justify-center h-screen">
+			<div className="relative w-2/4 h-2/4 mb-2 overflow-y-auto scrollbar-thin scrollbar-thumb-blue-500 scrollbar-track-gray-200">
+				<textarea
+					className="bg-slate-200 text-black font-semibold border border-gray-500 rounded-lg p-2 w-full h-full"
+					value={copiedText}
+					onChange={(e) => setCopiedText(e.target.value)}
+				/>
+				<div className="absolute top-0 right-0 mt-2 mr-2 flex flex-col items-center space-y-2">
+					<button
+						className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded"
+						onClick={handleCopyToClipboard}
+					>
+						<FaCopy />
+					</button>
+					<button
+						className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"
+						onClick={handlePasteFromClipboard}
+					>
+						<FaPaste />
+					</button>
+				</div>
 			</div>
 		</div>
 	);
