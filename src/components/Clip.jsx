@@ -47,6 +47,8 @@ const ClipboardExample = () => {
 						margin: 'auto', // Center the modal horizontally
 						display: 'flex',
 						flexDirection: 'column',
+						border: '1px solid',
+						borderRadius:'15px',	
 					},
 				}}
 			>
