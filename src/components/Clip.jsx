@@ -43,7 +43,7 @@ const ClipboardExample = () => {
 				style={{
 					content: {
 						width: '50%', // Set the width as desired
-						height: '50vh', // Set the height as a percentage of the viewport height
+						height: '70vh', // Set the height as a percentage of the viewport height
 						margin: 'auto', // Center the modal horizontally
 						display: 'flex',
 						flexDirection: 'column',
@@ -55,11 +55,11 @@ const ClipboardExample = () => {
 					<input
 						type="text"
 						placeholder="Enter the title"
-						className="bg-slate-200 text-black font-semibold border border-gray-500 rounded-lg p-2 w-full mb-10"
+						className="bg-slate-200 text-black font-semibold border border-gray-500 rounded-lg p-2 w-full mb-8"
 						value={title}
 						onChange={(e) => setTitle(e.target.value)}
 					/>
-					<div className="flex justify-end mt-2">
+					<div className="flex justify-end mb-2">
 						<button className="mr-2" onClick={handleCopyToClipboard}>
 							<FaCopy title="Copy" />
 						</button>
