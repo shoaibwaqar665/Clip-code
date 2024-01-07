@@ -6,6 +6,7 @@ import './Clip.css';
 const ClipboardExample = () => {
 	const [copiedText, setCopiedText] = useState('');
 	const [title, setTitle] = useState('');
+	const [enteredTitle, setEnteredTitle] = useState('');
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	const handleCopyToClipboard = async () => {
@@ -31,7 +32,11 @@ const ClipboardExample = () => {
 	};
 
 	const openModal = () => setIsModalOpen(true);
-	const closeModal = () => setIsModalOpen(false);
+	const closeModal = () => {
+		setIsModalOpen(false);
+		// Update entered title when the modal is closed
+		setEnteredTitle(title);
+	};
 
 	return (
 		<div className="relative flex flex-col items-center justify-center h-screen">
@@ -42,13 +47,13 @@ const ClipboardExample = () => {
 				contentLabel="Clipboard Modal"
 				style={{
 					content: {
-						width: '45%', // Set the width as desired
-						height: '45vh', // Set the height as a percentage of the viewport height
-						margin: 'auto', // Center the modal horizontally
+						width: '45%',
+						height: '45vh',
+						margin: 'auto',
 						display: 'flex',
 						flexDirection: 'column',
 						border: '1px solid',
-						borderRadius:'15px',	
+						borderRadius: '15px',
 					},
 				}}
 			>
@@ -56,7 +61,7 @@ const ClipboardExample = () => {
 					<input
 						type="text"
 						placeholder="Enter the title"
-						className="bg-slate-200 text-black font-semibold border border-gray-500 rounded-lg p-2 w-full mb-4 mt-2" // Reduce margin-bottom
+						className="bg-slate-200 text-black font-semibold border border-gray-500 rounded-lg p-2 w-full mb-4 mt-2"
 						value={title}
 						onChange={(e) => setTitle(e.target.value)}
 					/>
@@ -76,6 +81,8 @@ const ClipboardExample = () => {
 					/>
 				</div>
 			</Modal>
+			{/* Display the entered title outside the modal */}
+			{enteredTitle && <div className="mt-4">Entered Title: {enteredTitle}</div>}
 		</div>
 	);
 };
