@@ -33,9 +33,9 @@ const ClipboardExample = () => {
 					value={copiedText}
 					onChange={(e) => setCopiedText(e.target.value)}
 				/>
-				<div className="absolute top-0 right-0 mt-2 mr-2 flex flex-col items-center space-y-2">
+				<div className="absolute top-0 right-0 mt-2 mr-2 flex items-center">
 					<button
-						className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded"
+						className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded mr-2"
 						onClick={handleCopyToClipboard}
 					>
 						<FaCopy />
