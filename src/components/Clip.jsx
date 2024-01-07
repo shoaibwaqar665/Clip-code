@@ -8,6 +8,7 @@ const ClipboardExample = () => {
 	const [title, setTitle] = useState('');
 	const [enteredTitle, setEnteredTitle] = useState('');
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [titleClicked, setTitleClicked] = useState(false);
 
 	const handleCopyToClipboard = async () => {
 		try {
@@ -31,16 +32,32 @@ const ClipboardExample = () => {
 		}
 	};
 
-	const openModal = () => setIsModalOpen(true);
+	const openModal = () => {
+		if (titleClicked) {
+			setIsModalOpen(true);
+		} else {
+			setIsModalOpen(true);
+			setTitleClicked(true);
+		}
+	};
+
 	const closeModal = () => {
 		setIsModalOpen(false);
 		// Update entered title when the modal is closed
 		setEnteredTitle(title);
 	};
 
+	const handleTitleClick = () => {
+		if (enteredTitle) {
+			setIsModalOpen(true);
+		} else {
+			openModal();
+		}
+	};
+
 	return (
 		<div className="relative flex flex-col items-center justify-center h-screen">
-			<button onClick={openModal}>Open Modal</button>
+			<button onClick={handleTitleClick}>Open Modal</button>
 			<Modal
 				isOpen={isModalOpen}
 				onRequestClose={closeModal}
