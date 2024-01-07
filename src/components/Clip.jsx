@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Modal from 'react-modal';
 import ModalContent from './ModalComponent';
 import TitleDisplay from './ClipBoardDisplay';
-import { FaCopy, FaPaste } from 'react-icons/fa';
+import { FaAd, FaCopy, FaPaste, FaPlus } from 'react-icons/fa';
 import './Clip.css';
 
 const ClipboardExample = () => {
@@ -61,7 +61,7 @@ const ClipboardExample = () => {
 		<div className="relative flex flex-col items-center justify-center h-screen">
 			{/* Display the entered title outside the modal */}
 			{enteredTitle && <TitleDisplay enteredTitle={enteredTitle} handleTitleClick={handleTitleClick} />}
-			<button onClick={openNewModal}>Open New Modal</button>
+			<button onClick={openNewModal}><FaPlus /></button>
 			<Modal
 				isOpen={isModalOpen}
 				onRequestClose={closeModal}
