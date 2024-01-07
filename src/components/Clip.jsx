@@ -40,8 +40,18 @@ const ClipboardExample = () => {
 				isOpen={isModalOpen}
 				onRequestClose={closeModal}
 				contentLabel="Clipboard Modal"
+				style={{
+					content: {
+						width: '50%', // Set the width as desired
+						height: '50vh', // Set the height as a percentage of the viewport height
+						margin: 'auto', // Center the modal horizontally
+						display: 'flex',
+						flexDirection: 'column',
+						justifyContent: 'center',
+					},
+				}}
 			>
-				<div className="relative w-1/2 h-1/2 mb-2">
+				<div>
 					<input
 						type="text"
 						placeholder="Enter the title"
@@ -49,7 +59,7 @@ const ClipboardExample = () => {
 						value={title}
 						onChange={(e) => setTitle(e.target.value)}
 					/>
-					<div className="absolute top-0 right-0 mt-16 mr-2 flex items-center">
+					<div className="flex justify-end mt-2">
 						<button className="mr-2" onClick={handleCopyToClipboard}>
 							<FaCopy title="Copy" />
 						</button>
@@ -58,7 +68,7 @@ const ClipboardExample = () => {
 						</button>
 					</div>
 					<textarea
-						className="bg-slate-200 text-black font-semibold border border-gray-500 rounded-lg p-2 w-full h-full mt-2 scrollbar-thin scrollbar-thumb-blue-500 scrollbar-track-gray-200"
+						className="bg-slate-200 text-black font-semibold border border-gray-500 rounded-lg p-2 w-full h-full scrollbar-thin scrollbar-thumb-blue-500 scrollbar-track-gray-200"
 						placeholder="Enter the text"
 						value={copiedText}
 						onChange={(e) => setCopiedText(e.target.value)}
