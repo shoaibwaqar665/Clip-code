@@ -27,7 +27,7 @@ const ClipboardExample = () => {
 	};
 	return (
 		<div className="relative flex flex-col items-center justify-center h-screen">
-			<div className="relative w-2/4 h-2/4 mb-2 ">
+			<div className="relative w-1/2 h-1/2 mb-2 ">
 				<div className="absolute top-0 right-0 mt-2 mr-2 flex items-center">
 					<button
 						className="mr-2"
