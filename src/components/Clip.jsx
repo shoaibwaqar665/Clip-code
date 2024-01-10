@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
-import { FaCopy, FaPaste } from 'react-icons/fa';
+import { FaCopy, FaPaste, FaPlus } from 'react-icons/fa';
 import './Clip.css';
 
 const ClipboardExample = () => {
@@ -63,7 +63,7 @@ const ClipboardExample = () => {
 					Entered Title: {enteredTitle}
 				</div>
 			)}
-			<button onClick={openNewModal}>Open New Modal</button>
+			<button onClick={openNewModal}>Open New Modal<FaPlus/></button>
 			<Modal
 				isOpen={isModalOpen}
 				onRequestClose={closeModal}
