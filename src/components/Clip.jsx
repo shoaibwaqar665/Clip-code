@@ -61,7 +61,7 @@ const ClipboardExample = () => {
 					<button onClick={handleTitleClick}>	<FaEye className="ml-2" /></button>
 				</div>
 			)}
-			<button onClick={openNewModal}><FaPlus /></button>
+			<button className='mt-5' onClick={openNewModal}><FaPlus /></button>
 			<Modal
 				isOpen={isModalOpen}
 				onRequestClose={closeModal}
