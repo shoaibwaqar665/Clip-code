@@ -55,6 +55,7 @@ const ClipboardExample = () => {
 		setIsModalOpen(true);
 	};
 
+
 	return (
 		<div className="relative flex flex-col items-center justify-center h-screen">
 			{/* Display the entered title outside the modal */}
@@ -62,6 +63,7 @@ const ClipboardExample = () => {
 				<div className="mt-4 flex items-center" onClick={handleTitleClick} style={{ cursor: 'pointer' }}>
 					<span className="mr-2">Entered Title: {enteredTitle}</span>
 					<FaEdit />
+					<FaEye className="ml-2" />
 				</div>
 			)}
 			<button onClick={openNewModal}><FaPlus /></button>
