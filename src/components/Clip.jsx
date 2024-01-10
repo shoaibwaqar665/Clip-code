@@ -20,10 +20,10 @@ const ClipboardExample = () => {
 		openModal();
 	};
 
-	// const handleEditModal = () => {
-	// 	setIsEyeIconClicked(false);
-	// 	openModal();
-	// }
+	const handleEditModal = () => {
+		setIsEyeIconClicked(false);
+		openModal();
+	}
 
 	const openNewModal = () => {
 		setTitle('');
