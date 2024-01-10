@@ -2,14 +2,34 @@ import React, { useState } from 'react';
 import Modal from 'react-modal';
 import { FaCopy, FaEdit, FaEye, FaPaste, FaPlus, FaTrash } from 'react-icons/fa';
 import './Clip.css';
-
 const ClipboardExample = () => {
-	const [copiedText, setCopiedText] = useState('');
-	const [title, setTitle] = useState('');
-	const [enteredTitle, setEnteredTitle] = useState('');
 	const [isModalOpen, setIsModalOpen] = useState(false);
-	const [titleClicked, setTitleClicked] = useState(false);
+	const [title, setTitle] = useState('');
+	const [copiedText, setCopiedText] = useState('');
+	const [isEyeIconClicked, setIsEyeIconClicked] = useState(false);
 
+	const openModal = () => setIsModalOpen(true);
+
+	const closeModal = () => {
+		setIsModalOpen(false);
+		setIsEyeIconClicked(false);
+	};
+
+	const handleTitleClick = () => {
+		setIsEyeIconClicked(true);
+		openModal();
+	};
+
+	// const handleEditModal = () => {
+	// 	setIsEyeIconClicked(false);
+	// 	openModal();
+	// }
+
+	const openNewModal = () => {
+		setTitle('');
+		setCopiedText('');
+		setIsModalOpen(true);
+	};
 	const handleCopyToClipboard = async () => {
 		try {
 			// Copy text to clipboard
@@ -31,39 +51,14 @@ const ClipboardExample = () => {
 			console.error('Unable to read text from clipboard:', error);
 		}
 	};
-
-	const openModal = () => setIsModalOpen(true);
-
-	const closeModal = () => {
-		setIsModalOpen(false);
-		// Update entered title when the modal is closed
-		setEnteredTitle(title);
-		// Reset titleClicked state
-		setTitleClicked(false);
-	};
-
-	const handleTitleClick = () => {
-		// If entered title is clicked, open the current modal; otherwise, open a new modal
-		setTitleClicked(true);
-		openModal();
-	};
-
-	const openNewModal = () => {
-		// Reset modal state for a new modal
-		setTitle('');
-		setCopiedText('');
-		setIsModalOpen(true);
-	};
-
-
 	return (
 		<div className="relative flex flex-col items-center justify-center h-screen">
 			{/* Display the entered title outside the modal */}
-			{enteredTitle && (
-				<div className="mt-4 flex items-center" onClick={handleTitleClick} style={{ cursor: 'pointer' }}>
-					<span className="mr-2">Entered Title: {enteredTitle}</span>
-					<FaEdit />
-					<FaEye className="ml-2" />
+			{title && (
+				<div className="mt-4 flex items-center"  style={{ cursor: 'pointer' }}>
+					<span className="mr-2">Entered Title: {title}</span>
+					<button onClick={handleEditModal}>	<FaEdit /></button>
+					<button onClick={handleTitleClick}>	<FaEye className="ml-2" /></button>
 				</div>
 			)}
 			<button onClick={openNewModal}><FaPlus /></button>
@@ -92,12 +87,15 @@ const ClipboardExample = () => {
 						onChange={(e) => setTitle(e.target.value)}
 					/>
 					<div className="flex justify-end mb-2">
-						<button className="mr-2" onClick={handleCopyToClipboard}>
-							<FaCopy title="Copy" />
-						</button>
-						<button onClick={handlePasteFromClipboard}>
-							<FaPaste title="Paste" />
-						</button>
+						{isEyeIconClicked ? (
+							<button className="mr-2" onClick={handleCopyToClipboard}>
+								<FaCopy title="Copy" />
+							</button>
+						) : (
+							<button onClick={handlePasteFromClipboard}>
+								<FaPaste title="Paste" />
+							</button>
+						)}
 					</div>
 					<textarea
 						className="bg-slate-200 text-black font-semibold border border-gray-500 rounded-lg p-2 w-full h-full scrollbar-thin scrollbar-thumb-blue-500 scrollbar-track-gray-200"
