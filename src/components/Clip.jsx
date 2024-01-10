@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
-import { FaCopy, FaPaste, FaPlus } from 'react-icons/fa';
+import { FaCopy, FaEdit, FaEye, FaPaste, FaPlus, FaTrash } from 'react-icons/fa';
 import './Clip.css';
 
 const ClipboardExample = () => {
@@ -59,11 +59,12 @@ const ClipboardExample = () => {
 		<div className="relative flex flex-col items-center justify-center h-screen">
 			{/* Display the entered title outside the modal */}
 			{enteredTitle && (
-				<div className="mt-4" onClick={handleTitleClick} style={{ cursor: 'pointer' }}>
-					Entered Title: {enteredTitle}
+				<div className="mt-4 flex items-center" onClick={handleTitleClick} style={{ cursor: 'pointer' }}>
+					<span className="mr-2">Entered Title: {enteredTitle}</span>
+					<FaEdit />
 				</div>
 			)}
-			<button onClick={openNewModal}>Open New Modal<FaPlus/></button>
+			<button onClick={openNewModal}><FaPlus /></button>
 			<Modal
 				isOpen={isModalOpen}
 				onRequestClose={closeModal}
@@ -106,6 +107,7 @@ const ClipboardExample = () => {
 			</Modal>
 		</div>
 	);
+
 };
 
 export default ClipboardExample;
