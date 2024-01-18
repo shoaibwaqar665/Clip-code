@@ -59,7 +59,10 @@ const ClipboardExample = () => {
 	};
 
 	const handleSave = async () => {
-		await addDoc(value, { text: copiedText });
+		await addDoc(value, {
+			text: copiedText,
+			title: title
+		});
 	}
 
 	return (
