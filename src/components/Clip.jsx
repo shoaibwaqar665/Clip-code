@@ -1,18 +1,24 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
+import { database } from '../Firebase'
+import { addDoc, collection } from 'firebase/firestore'
 import { FaCopy, FaEdit, FaEye, FaPaste, FaPlus, FaTrash } from 'react-icons/fa';
 import './Clip.css';
+
 const ClipboardExample = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [title, setTitle] = useState('');
 	const [copiedText, setCopiedText] = useState('');
 	const [isEyeIconClicked, setIsEyeIconClicked] = useState(false);
 
+	const value = collection(database, "Clip-code")
+
 	const openModal = () => setIsModalOpen(true);
 
 	const closeModal = () => {
 		setIsModalOpen(false);
 		setIsEyeIconClicked(false);
+		handleSave();
 	};
 
 	const handleTitleClick = () => {
@@ -51,11 +57,16 @@ const ClipboardExample = () => {
 			console.error('Unable to read text from clipboard:', error);
 		}
 	};
+
+	const handleSave = async () => {
+		await addDoc(value, { text: copiedText });
+	}
+
 	return (
 		<div className="relative flex flex-col items-center justify-center h-screen">
 			{/* Display the entered title outside the modal */}
 			{title && (
-				<div className="mt-4 flex items-center"  style={{ cursor: 'pointer' }}>
+				<div className="mt-4 flex items-center" style={{ cursor: 'pointer' }}>
 					<span className="mr-2">Entered Title: {title}</span>
 					<button onClick={handleEditModal}>	<FaEdit /></button>
 					<button onClick={handleTitleClick}>	<FaEye className="ml-2" /></button>
