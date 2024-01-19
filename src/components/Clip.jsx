@@ -78,7 +78,7 @@ const ClipboardExample = () => {
 		const q = query(collection(db, 'Clip-code'), orderBy('date_created', 'desc'))
 		onSnapshot(q, (querySnapshot) => {
 			setTasks(querySnapshot.docs.map(doc => ({
-				copiedText: doc.data()
+				data: doc.data()
 			})))
 		})
 	}, [])
@@ -86,13 +86,13 @@ const ClipboardExample = () => {
 	return (
 		<div className="relative flex flex-col items-center justify-center h-screen">
 			{/* Display the entered title outside the modal */}
-			{title && (
-				<div className="mt-4 flex items-center" style={{ cursor: 'pointer' }}>
-					<span className="mr-2">Entered Title: {title}</span>
-					<button onClick={handleEditModal}>	<FaEdit /></button>
-					<button onClick={handleTitleClick}>	<FaEye className="ml-2" /></button>
+			{tasks?.map((task) => (
+				<div key={task.id} className="mt-4 flex items-center" style={{ cursor: 'pointer' }}>
+					<span className="mr-2">Entered Title: {task.data.title}</span>
+					<button onClick={handleEditModal}> <FaEdit /></button>
+					<button onClick={handleTitleClick}> <FaEye className="ml-2" /></button>
 				</div>
-			)}
+			))}
 			<button className='mt-5' onClick={openNewModal}><FaPlus /></button>
 			<Modal
 				isOpen={isModalOpen}
@@ -139,6 +139,7 @@ const ClipboardExample = () => {
 			</Modal>
 		</div>
 	);
+
 
 };
 
