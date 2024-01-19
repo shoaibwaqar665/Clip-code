@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
-import { database } from '../Firebase'
+import { db } from '../FirebaseConfig'
 import { addDoc, collection } from 'firebase/firestore'
 import { FaCopy, FaEdit, FaEye, FaPaste, FaPlus, FaTrash } from 'react-icons/fa';
 import './Clip.css';
@@ -11,7 +11,7 @@ const ClipboardExample = () => {
 	const [copiedText, setCopiedText] = useState('');
 	const [isEyeIconClicked, setIsEyeIconClicked] = useState(false);
 
-	const value = collection(database, "Clip-code")
+	const value = collection(db, "Clip-code")
 
 	const openModal = () => setIsModalOpen(true);
 
