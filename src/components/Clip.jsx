@@ -4,6 +4,7 @@ import { db } from '../FirebaseConfig'
 import { addDoc, collection } from 'firebase/firestore'
 import { FaCopy, FaEdit, FaEye, FaPaste, FaPlus, FaTrash } from 'react-icons/fa';
 import './Clip.css';
+import { v4 as uuidv4 } from 'uuid';
 
 const ClipboardExample = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
@@ -12,6 +13,7 @@ const ClipboardExample = () => {
 	const [isEyeIconClicked, setIsEyeIconClicked] = useState(false);
 
 	const value = collection(db, "Clip-code")
+	const guid = uuidv4();
 
 	const openModal = () => setIsModalOpen(true);
 
@@ -61,7 +63,8 @@ const ClipboardExample = () => {
 	const handleSave = async () => {
 		await addDoc(value, {
 			text: copiedText,
-			title: title
+			title: title,
+			text_guid:guid
 		});
 	}
 
