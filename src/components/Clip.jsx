@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 import { db } from '../FirebaseConfig'
-import { addDoc, collection } from 'firebase/firestore'
+import { addDoc, collection, Timestamp } from 'firebase/firestore'
 import { FaCopy, FaEdit, FaEye, FaPaste, FaPlus, FaTrash } from 'react-icons/fa';
 import './Clip.css';
 import { v4 as uuidv4 } from 'uuid';
@@ -61,11 +61,18 @@ const ClipboardExample = () => {
 	};
 
 	const handleSave = async () => {
-		await addDoc(value, {
-			text: copiedText,
-			title: title,
-			text_guid:guid
-		});
+		try {
+			await addDoc(value, {
+				text: copiedText,
+				title: title,
+				text_guid: guid,
+				date_created: Timestamp.now(),
+				is_deleted: false
+			});
+			
+		} catch (err) {
+			console.error(err);
+		}
 	}
 
 	return (
