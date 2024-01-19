@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 import { db } from '../FirebaseConfig'
-import { addDoc, collection, Timestamp } from 'firebase/firestore'
+import { addDoc, collection, Timestamp, query, orderBy, onSnapshot } from 'firebase/firestore'
 import { FaCopy, FaEdit, FaEye, FaPaste, FaPlus, FaTrash } from 'react-icons/fa';
 import './Clip.css';
 import { v4 as uuidv4 } from 'uuid';
@@ -11,7 +11,7 @@ const ClipboardExample = () => {
 	const [title, setTitle] = useState('');
 	const [copiedText, setCopiedText] = useState('');
 	const [isEyeIconClicked, setIsEyeIconClicked] = useState(false);
-
+	const [tasks, setTasks] = useState([])
 	const value = collection(db, "Clip-code")
 	const guid = uuidv4();
 
@@ -69,12 +69,20 @@ const ClipboardExample = () => {
 				date_created: Timestamp.now(),
 				is_deleted: false
 			});
-			
+
 		} catch (err) {
 			console.error(err);
 		}
 	}
-
+	useEffect(() => {
+		const q = query(collection(db, 'Clip-code'), orderBy('date_created', 'desc'))
+		onSnapshot(q, (querySnapshot) => {
+			setTasks(querySnapshot.docs.map(doc => ({
+				copiedText: doc.data()
+			})))
+		})
+	}, [])
+	console.log("the task list", tasks)
 	return (
 		<div className="relative flex flex-col items-center justify-center h-screen">
 			{/* Display the entered title outside the modal */}
