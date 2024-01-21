@@ -108,14 +108,19 @@ function Clip() {
 			console.error('Could not copy text: ', err);
 		});
 	};
-	const pasteFromClipboard = async () => {
+	const pasteText = async (target) => {
 		try {
 			const text = await navigator.clipboard.readText();
-			setEditableTodo(prev => ({ ...prev, text: text }));
-		} catch (err) {
-			console.error('Failed to read clipboard contents: ', err);
+			if (target === "edit") {
+				setEditableTodo(prev => ({ ...prev, text: text }));
+			} else if (target === "add") {
+				setNewTodo(prev => ({ ...prev, text: text }));
+			}
+		} catch (error) {
+			console.error('Failed to paste text from clipboard:', error);
 		}
 	};
+
 	const handleSave = async () => {
 		try {
 			await addDoc(value, {
@@ -228,7 +233,7 @@ function Clip() {
 						style={{ height: '50vh', resize: 'none' }}
 					/>
 					<button
-						onClick={pasteFromClipboard}
+						onClick={() => pasteText("edit")}
 						className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded-lg mr-4 transition duration-300"
 					>
 						Paste from Clipboard
@@ -267,19 +272,23 @@ function Clip() {
 						name="text"
 						value={newTodo.text}
 						onChange={handleAddChange}
-						placeholder="text"
+						placeholder="Text"
 						className="border border-gray-300 p-3 rounded w-full mb-4"
-						style={{ height: '50vh', resize: 'none' }} // Copied style from Edit Modal
+						style={{ height: '50vh', resize: 'none' }}
 					/>
-					<button onClick={submitNewTodo} className="bg-green-600 hover:bg-green-800 text-white font-bold py-2 px-4 rounded-lg mr-4 transition duration-300">
-						Add Todo
-					</button>
-					<button onClick={closeAddModal} className="bg-gray-600 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded-lg transition duration-300">
+					<div className="flex justify-between">
+						<button onClick={() => pasteText("add")} className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded-lg transition duration-300">
+							Paste from Clipboard
+						</button>
+						<button onClick={submitNewTodo} className="bg-green-600 hover:bg-green-800 text-white font-bold py-2 px-4 rounded-lg transition duration-300">
+							Add Todo
+						</button>
+					</div>
+					<button onClick={closeAddModal} className="bg-gray-600 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded-lg mt-4 w-full transition duration-300">
 						Cancel
 					</button>
 				</div>
 			</Modal>
-
 
 		</div>
 
