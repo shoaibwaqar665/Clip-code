@@ -1,14 +1,13 @@
-import { useState } from 'react'
-// import './App.css'
-import ClipboardExample from './components/Clip'
-import { FaTwitter, FaGithub, FaReact } from 'react-icons/fa';
+import './App.css'
+import Clip from './components/Refactor';
 
 
 function App() {
 
    return (
       <>
-         <ClipboardExample />
+         {/* <ClipboardExample /> */}
+         <Clip/>
         
       </>
    )
