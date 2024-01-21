@@ -153,7 +153,7 @@ function SumUp() {
 
 	return (
 		<div className="container mx-auto px-4 sm:px-6 lg:px-8 min-h-screen">
-			<button onClick={openAddModal} className="...">Add Todo</button>
+			<button onClick={openAddModal} className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300">Add Todo</button>
 
 			<TodoList
 				todos={todos}
