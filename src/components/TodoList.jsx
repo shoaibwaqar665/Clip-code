@@ -1,4 +1,4 @@
-import TodoItem from './TodoItem';
+import TodoItem from './TodoItems';
 
 const TodoList = ({ todos, openDetailModal, openEditModal, deleteTodo }) => {
 	return (
