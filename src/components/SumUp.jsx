@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 import TodoList from './TodoList';
 import DetailModal from './DetailModal';
 import EditModal from './EditModal';
-import AddTodoModal from './AddTodoModal';
+import AddTodoModal from './AddTodo';
 function SumUp() {
 	const [todos, setTodos] = useState([]);
 	const [detailModalIsOpen, setDetailModalIsOpen] = useState(false);
