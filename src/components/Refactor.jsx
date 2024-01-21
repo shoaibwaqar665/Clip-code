@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { db } from '../FirebaseConfig'
-import { addDoc, collection, Timestamp, query, orderBy, onSnapshot, deleteDoc, doc } from 'firebase/firestore'
+import { addDoc, collection, Timestamp, query, orderBy, onSnapshot, deleteDoc, doc, updateDoc } from 'firebase/firestore'
 import { v4 as uuidv4 } from 'uuid';
 
 function Clip() {
@@ -29,11 +29,11 @@ function Clip() {
 	const closeDetailModal = () => {
 		setDetailModalIsOpen(false);
 	}
-
-	const openEditModal = (todo, index) => {
-		setEditableTodo({ ...todo, index });
+	const openEditModal = (todoData, id) => {
+		const index = todos.findIndex((todo) => todo.id === id);
+		setEditableTodo({ ...todoData, id, index });
 		setEditModalIsOpen(true);
-	}
+	};
 
 	const closeEditModal = () => {
 		setEditModalIsOpen(false);
@@ -44,12 +44,41 @@ function Clip() {
 		setEditableTodo(prev => ({ ...prev, [name]: value }));
 	}
 
-	const submitEditTodo = () => {
-		const newTodos = [...todos];
-		newTodos[editableTodo.index] = { title: editableTodo.title, text: editableTodo.text };
-		setTodos(newTodos);
-		closeEditModal();
-	}
+	// const submitEditTodo = () => {
+	// 	const newTodos = [...todos];
+	// 	newTodos[editableTodo.index] = { title: editableTodo.title, text: editableTodo.text };
+	// 	setTodos(newTodos);
+	// 	closeEditModal();
+	// }
+
+	const submitEditTodo = async () => {
+		// Assuming editableTodo includes the 'id' of the todo item
+		const { id, title, text, index } = editableTodo;
+		console.log(editableTodo.id, "editableTodo")
+		try {
+			const todoRef = doc(db, "Clip-code", id);
+			await updateDoc(todoRef, {
+				title: title,
+				text: text,
+				date_created: Timestamp.now(),
+			});
+
+			console.log("Todo updated successfully");
+
+			// Update the todo in the local state
+			const updatedTodo = { ...todos[index], title, text };
+			const newTodos = [...todos];
+			newTodos[index] = updatedTodo;
+			setTodos(newTodos);
+
+			closeEditModal();
+			handleGetData();
+		} catch (error) {
+			console.error("Error updating todo: ", error);
+		}
+	};
+
+
 
 	const openAddModal = () => {
 		setAddModalIsOpen(true);
@@ -73,10 +102,6 @@ function Clip() {
 		}
 	}
 
-	// const deleteTodo = (index) => {
-	// 	const newTodos = todos.filter((_, idx) => idx !== index);
-	// 	setTodos(newTodos);
-	// }
 	const deleteTodo = async (textGuid) => {
 		try {
 			await deleteDoc(doc(db, "Clip-code", textGuid));
@@ -115,17 +140,18 @@ function Clip() {
 			console.error(err);
 		}
 	}
-
-	useEffect(() => {
+	const handleGetData = () => {
 		const q = query(collection(db, 'Clip-code'), orderBy('date_created', 'desc'))
 		onSnapshot(q, (querySnapshot) => {
 			setTodos(querySnapshot.docs.map(doc => ({
 				data: doc.data(),
-				  id: doc.id,
+				id: doc.id,
 			})))
 		})
+	}
+	useEffect(() => {
+		handleGetData()
 	}, [])
-	console.log(todos[1]?.data, "todos")
 
 	return (
 		<div className="container mx-auto p-4">
