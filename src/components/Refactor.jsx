@@ -149,7 +149,7 @@ function Clip() {
 	}, [])
 
 	return (
-		<div className="container mx-auto p-4">
+		<div className="container mx-auto px-4 sm:px-6 lg:px-8 min-h-screen">
 			<button
 				onClick={openAddModal}
 				className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300"
@@ -159,11 +159,11 @@ function Clip() {
 
 			<div className="mt-6">
 				{todos.map((todo, index) => (
-					<div key={todo?.id} className="flex items-center justify-between p-3 my-2 bg-white rounded-lg shadow border border-gray-200">
-						<h3 onClick={() => openDetailModal(todo)} className="text-lg font-semibold text-gray-700 cursor-pointer hover:text-gray-900 transition duration-300">
+					<div key={todo?.id} className="flex flex-col sm:flex-row items-center justify-between p-3 my-2 bg-white rounded-lg shadow border border-gray-200">
+						<h3 onClick={() => openDetailModal(todo)} className="text-base sm:text-lg font-semibold text-gray-700 cursor-pointer hover:text-gray-900 transition duration-300">
 							{todo?.data?.title}
 						</h3>
-						<div>
+						<div className="mt-2 sm:mt-0">
 							<button
 								onClick={() => openEditModal(todo?.data, todo?.id)}
 								className="bg-yellow-600 hover:bg-yellow-800 text-white font-bold py-1 px-3 rounded-lg ml-2 transition duration-300"
@@ -188,7 +188,7 @@ function Clip() {
 				className="fixed inset-0 flex items-center justify-center"
 				overlayClassName="fixed inset-0 bg-black bg-opacity-50"
 			>
-				<div className="bg-white rounded-lg shadow-xl p-6 max-w-lg mx-auto" style={{ maxHeight: '80vh' }}>
+				<div className="bg-white rounded-lg shadow-xl p-4 sm:p-6 lg:p-8 max-w-lg mx-auto w-full" style={{ maxHeight: '80vh' }}>
 					<h2 className="text-2xl font-bold text-gray-800 mb-4">{selectedTodo?.data?.title}</h2>
 					<div className="mb-6 overflow-y-auto" style={{ maxHeight: '50vh' }}>
 						<p className="text-gray-600">{selectedTodo?.data?.text}</p>
@@ -208,15 +208,14 @@ function Clip() {
 				</div>
 			</Modal>
 
-
 			{/* Edit Modal */}
 			<Modal
 				isOpen={editModalIsOpen}
 				onRequestClose={closeEditModal}
-				className="flex items-center justify-center h-screen"
+				className="fixed inset-0 flex items-center justify-center"
 				overlayClassName="fixed inset-0 bg-black bg-opacity-50"
 			>
-				<div className="bg-white rounded-lg shadow-xl p-6 max-w-lg mx-auto w-full">
+				<div className="bg-white rounded-lg shadow-xl p-4 sm:p-6 lg:p-8 max-w-lg mx-auto w-full">
 					<input
 						name="title"
 						value={editableTodo.title}
@@ -228,7 +227,7 @@ function Clip() {
 						name="text"
 						value={editableTodo.text}
 						onChange={handleEditChange}
-						placeholder="text"
+						placeholder="Text"
 						className="border border-gray-300 p-3 rounded w-full mb-4 custom-scrollbar"
 						style={{ height: '50vh', resize: 'none' }}
 					/>
@@ -260,7 +259,7 @@ function Clip() {
 				className="fixed inset-0 flex items-center justify-center"
 				overlayClassName="fixed inset-0 bg-black bg-opacity-50"
 			>
-				<div className="bg-white rounded-lg shadow-xl p-6 max-w-lg mx-auto">
+				<div className="bg-white rounded-lg shadow-xl p-4 sm:p-6 lg:p-8 max-w-lg mx-auto">
 					<input
 						name="title"
 						value={newTodo.title}
@@ -289,10 +288,9 @@ function Clip() {
 					</button>
 				</div>
 			</Modal>
-
 		</div>
-
 	);
+
 }
 
 export default Clip;
