@@ -1,3 +1,4 @@
+import Modal from 'react-modal';
 const AddTodoModal = ({ addModalIsOpen, closeAddModal, newTodo, handleAddChange, submitNewTodo, pasteText }) => {
 	return (
 		<Modal
@@ -9,14 +10,14 @@ const AddTodoModal = ({ addModalIsOpen, closeAddModal, newTodo, handleAddChange,
 			<div className="bg-white rounded-lg shadow-xl p-4 sm:p-6 lg:p-8 max-w-lg mx-auto">
 				<input
 					name="title"
-					value={newTodo.title}
+					value={newTodo?.title}
 					onChange={handleAddChange}
 					placeholder="Title"
 					className="border border-gray-300 p-3 rounded w-full mb-4"
 				/>
 				<textarea
 					name="text"
-					value={newTodo.text}
+					value={newTodo?.text}
 					onChange={handleAddChange}
 					placeholder="Text"
 					className="border border-gray-300 p-3 rounded w-full mb-4"
