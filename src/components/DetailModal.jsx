@@ -1,3 +1,4 @@
+import Modal from 'react-modal';
 const DetailModal = ({ isOpen, onRequestClose, selectedTodo }) => {
 	return (
 		<Modal
