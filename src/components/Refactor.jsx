@@ -44,15 +44,9 @@ function Clip() {
 		setEditableTodo(prev => ({ ...prev, [name]: value }));
 	}
 
-	// const submitEditTodo = () => {
-	// 	const newTodos = [...todos];
-	// 	newTodos[editableTodo.index] = { title: editableTodo.title, text: editableTodo.text };
-	// 	setTodos(newTodos);
-	// 	closeEditModal();
-	// }
+
 
 	const submitEditTodo = async () => {
-		// Assuming editableTodo includes the 'id' of the todo item
 		const { id, title, text, index } = editableTodo;
 		console.log(editableTodo.id, "editableTodo")
 		try {
