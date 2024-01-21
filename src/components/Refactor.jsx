@@ -6,11 +6,7 @@ import { addDoc, collection, Timestamp, query, orderBy, onSnapshot, deleteDoc, d
 import { v4 as uuidv4 } from 'uuid';
 
 function Clip() {
-	const [todos, setTodos] = useState([
-		{ title: 'Grocery Shopping', text: 'Buy milk, bread, and eggs from the supermarket.' },
-		{ title: 'Read a Book', text: 'Finish reading the last chapter of the novel.' },
-		{ title: 'Exercise', text: 'Go for a 30-minute run in the park.' }
-	]);
+	const [todos, setTodos] = useState([]);
 	const [detailModalIsOpen, setDetailModalIsOpen] = useState(false);
 	const [editModalIsOpen, setEditModalIsOpen] = useState(false);
 	const [addModalIsOpen, setAddModalIsOpen] = useState(false);
