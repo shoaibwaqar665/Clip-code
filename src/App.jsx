@@ -1,5 +1,6 @@
 import './App.css'
 import Clip from './components/Refactor';
+import SumUp from './components/SumUp';
 
 
 function App() {
@@ -7,7 +8,8 @@ function App() {
    return (
       <>
          {/* <ClipboardExample /> */}
-         <Clip/>
+         {/* <Clip/> */}
+         <SumUp/>
         
       </>
    )
