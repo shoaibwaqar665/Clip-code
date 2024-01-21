@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { db } from '../FirebaseConfig'
-import { addDoc, collection, Timestamp, query, orderBy, onSnapshot } from 'firebase/firestore'
+import { addDoc, collection, Timestamp, query, orderBy, onSnapshot, deleteDoc, doc } from 'firebase/firestore'
 import { v4 as uuidv4 } from 'uuid';
 
 function Clip() {
@@ -73,9 +73,18 @@ function Clip() {
 		}
 	}
 
-	const deleteTodo = (index) => {
-		const newTodos = todos.filter((_, idx) => idx !== index);
-		setTodos(newTodos);
+	// const deleteTodo = (index) => {
+	// 	const newTodos = todos.filter((_, idx) => idx !== index);
+	// 	setTodos(newTodos);
+	// }
+	const deleteTodo = async (textGuid) => {
+		try {
+			await deleteDoc(doc(db, "Clip-code", textGuid));
+			console.log("Document successfully deleted!");
+			setTodos(todos.filter((todo) => todo?.id !== textGuid));
+		} catch (error) {
+			console.error("Error removing document: ", error);
+		}
 	}
 	const copyToClipboard = text => {
 		navigator.clipboard.writeText(text).then(() => {
