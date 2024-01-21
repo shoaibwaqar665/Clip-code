@@ -1,5 +1,5 @@
 // src/App.js
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { db } from '../FirebaseConfig'
 import { addDoc, collection, Timestamp, query, orderBy, onSnapshot } from 'firebase/firestore'
@@ -93,7 +93,28 @@ function Clip() {
 			console.error('Failed to read clipboard contents: ', err);
 		}
 	};
+	const handleSave = async () => {
+		try {
+			await addDoc(value, {
+				text: copiedText,
+				title: title,
+				text_guid: guid,
+				date_created: Timestamp.now(),
+				is_deleted: false
+			});
 
+		} catch (err) {
+			console.error(err);
+		}
+	}
+	useEffect(() => {
+		const q = query(collection(db, 'Clip-code'), orderBy('date_created', 'desc'))
+		onSnapshot(q, (querySnapshot) => {
+			setTasks(querySnapshot.docs.map(doc => ({
+				data: doc.data()
+			})))
+		})
+	}, [])
 	return (
 		<div className="container mx-auto p-4">
 			<button
