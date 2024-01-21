@@ -3,7 +3,7 @@ import Modal from 'react-modal';
 import { db } from '../FirebaseConfig'
 import { addDoc, collection, Timestamp, query, orderBy, onSnapshot } from 'firebase/firestore'
 import { FaCopy, FaEdit, FaEye, FaPaste, FaPlus, FaTrash } from 'react-icons/fa';
-import './Clip.css';
+// import './Clip.css';
 import { v4 as uuidv4 } from 'uuid';
 
 const ClipboardExample = () => {
