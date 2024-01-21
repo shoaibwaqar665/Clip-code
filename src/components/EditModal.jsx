@@ -1,3 +1,4 @@
+import Modal from 'react-modal';
 const EditModal = ({ editModalIsOpen, closeEditModal, editableTodo, handleEditChange, submitEditTodo, pasteText }) => {
 	return (
 		<Modal
@@ -9,14 +10,14 @@ const EditModal = ({ editModalIsOpen, closeEditModal, editableTodo, handleEditCh
 			<div className="bg-white rounded-lg shadow-xl p-4 sm:p-6 lg:p-8 max-w-lg mx-auto w-full">
 				<input
 					name="title"
-					value={editableTodo.title}
+					value={editableTodo?.title}
 					onChange={handleEditChange}
 					placeholder="Title"
 					className="border border-gray-300 p-3 rounded w-full mb-4"
 				/>
 				<textarea
 					name="text"
-					value={editableTodo.text}
+					value={editableTodo?.text}
 					onChange={handleEditChange}
 					placeholder="Text"
 					className="border border-gray-300 p-3 rounded w-full mb-4 custom-scrollbar"
