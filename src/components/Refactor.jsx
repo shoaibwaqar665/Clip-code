@@ -67,6 +67,7 @@ function Clip() {
 	const submitNewTodo = () => {
 		if (newTodo.title && newTodo.description) {
 			setTodos([...todos, newTodo]);
+			handleSave();
 			setNewTodo({ title: '', description: '' }); // Reset new todo
 			closeAddModal();
 		}
@@ -94,8 +95,8 @@ function Clip() {
 	const handleSave = async () => {
 		try {
 			await addDoc(value, {
-				text: copiedText,
-				title: title,
+				text: newTodo.description,
+				title: newTodo.title,
 				text_guid: guid,
 				date_created: Timestamp.now(),
 				is_deleted: false
