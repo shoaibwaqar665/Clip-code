@@ -108,12 +108,15 @@ function Clip() {
 	}
 
 	useEffect(() => {
-		const q = query(collection(db, 'Clip-code'), orderBy('date_created', 'desc'));
+		const q = query(collection(db, 'Clip-code'), orderBy('date_created', 'desc'))
 		onSnapshot(q, (querySnapshot) => {
-			setTodos(querySnapshot.docs.map(doc => doc.data()));
-		});
-	}, []);
-	console.log(todos, "todos")
+			setTodos(querySnapshot.docs.map(doc => ({
+				data: doc.data(),
+				  id: doc.id,
+			})))
+		})
+	}, [])
+	console.log(todos[1]?.data, "todos")
 
 	return (
 		<div className="container mx-auto p-4">
@@ -125,20 +128,20 @@ function Clip() {
 			</button>
 
 			<div className="mt-6">
-				{todos.map((todo) => (
-					<div key={todo?.text_guid} className="flex items-center justify-between p-3 my-2 bg-white rounded-lg shadow border border-gray-200">
+				{todos.map((todo, index) => (
+					<div key={todo?.id} className="flex items-center justify-between p-3 my-2 bg-white rounded-lg shadow border border-gray-200">
 						<h3 onClick={() => openDetailModal(todo)} className="text-lg font-semibold text-gray-700 cursor-pointer hover:text-gray-900 transition duration-300">
-							{todo?.title}
+							{todo?.data?.title}
 						</h3>
 						<div>
 							<button
-								onClick={() => openEditModal(todo, todo?.text_guid)}
+								onClick={() => openEditModal(todo?.data, todo?.id)}
 								className="bg-yellow-600 hover:bg-yellow-800 text-white font-bold py-1 px-3 rounded-lg ml-2 transition duration-300"
 							>
 								Edit
 							</button>
 							<button
-								onClick={() => deleteTodo(todo?.text_guid)}
+								onClick={() => deleteTodo(todo?.id)}
 								className="bg-red-600 hover:bg-red-800 text-white font-bold py-1 px-3 rounded-lg ml-2 transition duration-300"
 							>
 								Delete
@@ -156,9 +159,9 @@ function Clip() {
 				overlayClassName="fixed inset-0 bg-black bg-opacity-50"
 			>
 				<div className="bg-white rounded-lg shadow-xl p-6 max-w-lg mx-auto" style={{ maxHeight: '80vh' }}>
-					<h2 className="text-2xl font-bold text-gray-800 mb-4">{selectedTodo?.title}</h2>
+					<h2 className="text-2xl font-bold text-gray-800 mb-4">{selectedTodo?.data?.title}</h2>
 					<div className="mb-6 overflow-y-auto" style={{ maxHeight: '50vh' }}>
-						<p className="text-gray-600">{selectedTodo?.text}</p>
+						<p className="text-gray-600">{selectedTodo?.data?.text}</p>
 					</div>
 					<button
 						onClick={() => copyToClipboard(selectedTodo?.text)}
