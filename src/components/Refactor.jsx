@@ -108,14 +108,12 @@ function Clip() {
 	}
 
 	useEffect(() => {
-		const q = query(collection(db, 'Clip-code'), orderBy('date_created', 'desc'))
+		const q = query(collection(db, 'Clip-code'), orderBy('date_created', 'desc'));
 		onSnapshot(q, (querySnapshot) => {
-			setTodos(querySnapshot.docs.map(doc => ({
-				data: doc.data()
-			})))
-		})
-	}, [])
-	console.log(todos[1]?.data,"todos")
+			setTodos(querySnapshot.docs.map(doc => doc.data()));
+		});
+	}, []);
+	console.log(todos, "todos")
 
 	return (
 		<div className="container mx-auto p-4">
@@ -130,7 +128,7 @@ function Clip() {
 				{todos.map((todo, index) => (
 					<div key={index} className="flex items-center justify-between p-3 my-2 bg-white rounded-lg shadow border border-gray-200">
 						<h3 onClick={() => openDetailModal(todo)} className="text-lg font-semibold text-gray-700 cursor-pointer hover:text-gray-900 transition duration-300">
-							{todo?.data?.title}
+							{todo?.title}
 						</h3>
 						<div>
 							<button
@@ -158,9 +156,9 @@ function Clip() {
 				overlayClassName="fixed inset-0 bg-black bg-opacity-50"
 			>
 				<div className="bg-white rounded-lg shadow-xl p-6 max-w-lg mx-auto" style={{ maxHeight: '80vh' }}>
-					<h2 className="text-2xl font-bold text-gray-800 mb-4">{selectedTodo?.data?.title}</h2>
+					<h2 className="text-2xl font-bold text-gray-800 mb-4">{selectedTodo?.title}</h2>
 					<div className="mb-6 overflow-y-auto" style={{ maxHeight: '50vh' }}>
-						<p className="text-gray-600">{selectedTodo?.data?.text}</p>
+						<p className="text-gray-600">{selectedTodo?.text}</p>
 					</div>
 					<button
 						onClick={() => copyToClipboard(selectedTodo?.text)}
