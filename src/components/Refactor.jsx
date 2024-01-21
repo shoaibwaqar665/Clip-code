@@ -125,20 +125,20 @@ function Clip() {
 			</button>
 
 			<div className="mt-6">
-				{todos.map((todo, index) => (
-					<div key={index} className="flex items-center justify-between p-3 my-2 bg-white rounded-lg shadow border border-gray-200">
+				{todos.map((todo) => (
+					<div key={todo?.text_guid} className="flex items-center justify-between p-3 my-2 bg-white rounded-lg shadow border border-gray-200">
 						<h3 onClick={() => openDetailModal(todo)} className="text-lg font-semibold text-gray-700 cursor-pointer hover:text-gray-900 transition duration-300">
 							{todo?.title}
 						</h3>
 						<div>
 							<button
-								onClick={() => openEditModal(todo, index)}
+								onClick={() => openEditModal(todo, todo?.text_guid)}
 								className="bg-yellow-600 hover:bg-yellow-800 text-white font-bold py-1 px-3 rounded-lg ml-2 transition duration-300"
 							>
 								Edit
 							</button>
 							<button
-								onClick={() => deleteTodo(index)}
+								onClick={() => deleteTodo(todo?.text_guid)}
 								className="bg-red-600 hover:bg-red-800 text-white font-bold py-1 px-3 rounded-lg ml-2 transition duration-300"
 							>
 								Delete
