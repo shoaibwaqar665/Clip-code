@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom'; 
+import { Link, useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../FirebaseConfig';
 
@@ -7,7 +7,7 @@ const Login = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [loginError, setLoginError] = useState('');
-	const navigate = useNavigate(); 
+	const navigate = useNavigate();
 
 	const handleLogin = async (e) => {
 		e.preventDefault();
@@ -23,38 +23,52 @@ const Login = () => {
 	};
 
 	return (
-		<div className="container mx-auto my-8 p-4 max-w-md bg-white shadow-md">
-			<h2 className="text-2xl font-semibold mb-4">LOGIN HERE</h2>
-			<form autoComplete="off" className="form-group" onSubmit={handleLogin}>
-				<label className="block mb-2 text-gray-600">Enter Email</label>
-				<input
-					type="email"
-					className="form-control mb-2 p-2 border rounded"
-					required
-					onChange={(e) => setEmail(e.target.value)}
-					value={email}
-				/>
+		<div className="container mx-auto my-12 p-8 max-w-md bg-white rounded-lg shadow-xl">
+			<h2 className="text-3xl font-bold mb-6 text-center text-gray-800">Login Here</h2>
+			<form autoComplete="off" className="space-y-4" onSubmit={handleLogin}>
+				<div>
+					<label className="block text-gray-700 text-sm font-bold mb-2">Email</label>
+					<input
+						type="email"
+						className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+						required
+						onChange={(e) => setEmail(e.target.value)}
+						value={email}
+					/>
+				</div>
 
-				<label className="block mb-2 text-gray-600">Enter Password</label>
-				<input
-					type="password"
-					className="form-control mb-4 p-2 border rounded"
-					required
-					onChange={(e) => setPassword(e.target.value)}
-					value={password}
-				/>
-				<br />
-				<button type="submit" className="btn btn-success mybtn2 px-4 py-2 bg-green-500 text-white rounded-sm">
-					Login
-				</button>
+				<div>
+					<label className="block text-gray-700 text-sm font-bold mb-2">Password</label>
+					<input
+						type="password"
+						className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+						required
+						onChange={(e) => setPassword(e.target.value)}
+						value={password}
+					/>
+				</div>
+
+				<div className="flex items-center justify-center">
+					<button
+						type="submit"
+						className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-colors duration-150"
+					>
+						Login
+					</button>
+				</div>
 			</form>
-			{loginError && <div className="error-msg mt-4 text-red-500">{loginError}</div>}
-
-			<span className="mt-4 block text-gray-600">
-				Don't have an account? Register <Link to="/signup" className="text-blue-500">here</Link>
-			</span>
+			{loginError && (
+				<p className="text-red-500 text-xs italic mt-4">{loginError}</p>
+			)}
+			<p className="mt-4 text-center">
+				Don't have an account?{' '}
+				<Link to="/signup" className="text-blue-500 hover:text-blue-700">
+					Register here
+				</Link>
+			</p>
 		</div>
 	);
+
 };
 
 export default Login;
