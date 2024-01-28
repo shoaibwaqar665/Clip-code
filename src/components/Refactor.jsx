@@ -10,11 +10,12 @@ function Clip() {
 	const [editModalIsOpen, setEditModalIsOpen] = useState(false);
 	const [addModalIsOpen, setAddModalIsOpen] = useState(false);
 	const [selectedTodo, setSelectedTodo] = useState(null);
+	const [isCopied, setIsCopied] = useState(false);
 	const [editableTodo, setEditableTodo] = useState({ title: '', text: '', index: -1 });
 	const [newTodo, setNewTodo] = useState({ title: '', text: '' });
 	const [user, setUser] = useState(null);
 
-	
+
 	const openDetailModal = (todo) => {
 		setSelectedTodo(todo);
 		setDetailModalIsOpen(true);
@@ -22,6 +23,7 @@ function Clip() {
 
 	const closeDetailModal = () => {
 		setDetailModalIsOpen(false);
+		setIsCopied(false);
 	}
 	const openEditModal = (todoData, id) => {
 		const index = todos.findIndex((todo) => todo.id === id);
@@ -100,13 +102,13 @@ function Clip() {
 		}
 	}
 	const copyToClipboard = text => {
-		console.log(text," the text")
 		navigator.clipboard.writeText(text).then(() => {
-			alert('text copied to clipboard!');
-		}, err => {
+			setIsCopied(true);
+		}).catch(err => {
 			console.error('Could not copy text: ', err);
 		});
 	};
+
 	const pasteText = async (target) => {
 		try {
 			const text = await navigator.clipboard.readText();
@@ -121,23 +123,23 @@ function Clip() {
 	};
 
 	const handleSave = async () => {
-		if (!user) return; 
+		if (!user) return;
 
 		try {
 			await addDoc(collection(db, "Clip-code"), {
 				text: newTodo.text,
 				title: newTodo.title,
-				userId: user.uid, 
+				userId: user.uid,
 				date_created: Timestamp.now(),
 				is_deleted: false
 			});
-			setNewTodo({ title: '', text: '' }); 
-			handleGetData(user?.uid); 
+			setNewTodo({ title: '', text: '' });
+			handleGetData(user?.uid);
 		} catch (err) {
 			console.error(err);
 		}
 	};
-	
+
 	useEffect(() => {
 		const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
 			setUser(currentUser);
@@ -208,8 +210,9 @@ function Clip() {
 					<button
 						onClick={() => copyToClipboard(selectedTodo?.data?.text)}
 						className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded-lg mr-4 transition duration-300"
+						disabled={isCopied} // Disable button based on isCopied state
 					>
-						Copy text
+						{isCopied ? 'Copied!' : 'Copy text'} {/* Change button text based on isCopied state */}
 					</button>
 					<button
 						onClick={closeDetailModal}
