@@ -14,15 +14,8 @@ function Clip() {
 	const [editableTodo, setEditableTodo] = useState({ title: '', text: '', index: -1 });
 	const [newTodo, setNewTodo] = useState({ title: '', text: '' });
 	const [user, setUser] = useState(null);
-	const value = collection(db, "Clip-code")
-	const guid = uuidv4();
 
-	const getCurrentUser = () => {
-		const user = auth.currentUser;
-		setUser(user);
-		return user;
-	};
-
+	
 	const openDetailModal = (todo) => {
 		setSelectedTodo(todo);
 		setDetailModalIsOpen(true);
