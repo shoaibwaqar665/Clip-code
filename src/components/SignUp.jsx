@@ -17,21 +17,45 @@ const Signup = () => {
 		const { name, value } = e.target;
 		setFormData((prevData) => ({ ...prevData, [name]: value }));
 	};
+
 	const navigate = useNavigate();
+
 	const handleRegister = async (e) => {
 		e.preventDefault();
 		setIsLoading(true);
+		setRegistrationError(''); // Reset error message before attempting registration
+
 		try {
-			await createUserWithEmailAndPassword(auth, formData.email, formData.password);
-			await addDoc(collection(db, 'user'), {
+			const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+			await addDoc(collection(db, 'users'), { 
 				Name: formData.fullName,
 				Email: formData.email,
+				uid: userCredential.user.uid, 
 			});
 			navigate('/todo');
 		} catch (error) {
-			setRegistrationError(error.message);
+			console.error("Registration Error:", error);
+			parseFirebaseErrors(error.code); 
 		}
+
 		setIsLoading(false);
+	};
+
+	const parseFirebaseErrors = (errorCode) => {
+		let errorMessage = "An unexpected error occurred. Please try again.";
+		switch (errorCode) {
+			case "auth/email-already-in-use":
+				errorMessage = "The email address is already in use by another account.";
+				break;
+			case "auth/weak-password":
+				errorMessage = "Password should be at least 6 characters.";
+				break;
+			case "auth/invalid-email":
+				errorMessage = "The email address is not valid.";
+				break;
+			
+		}
+		setRegistrationError(errorMessage);
 	};
 
 	return (
