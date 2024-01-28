@@ -8,7 +8,6 @@ function App() {
 
    return (
       <>
-         {/* <Clip/> */}
          <Routes>
             <Route path="/" element={< Login />} />
             <Route path="/todo" element={< Clip />} />
