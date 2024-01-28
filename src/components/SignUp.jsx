@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { db, auth } from '../FirebaseConfig';
 import { addDoc, collection } from 'firebase/firestore';
@@ -26,20 +26,16 @@ const Signup = () => {
 			const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
 			const user = userCredential.user;
 
-			// Store additional user information in the Firestore database
 			const usersCollection = collection(db, 'user');
 			await addDoc(usersCollection, {
 				Name: formData.fullName,
 				Email: formData.email,
-				// Do not store the password in the database for security reasons
 			});
 
-			// Clear input fields and errors after successful registration
 			setFormData({ fullName: '', email: '', password: '' });
 			setRegistrationError('');
 			setIsLoading(false);
-			// Redirect to another page if needed
-			// props.history.push('/login');
+			navigate('/todo');
 		} catch (error) {
 			setRegistrationError(error.message);
 			setIsLoading(false);
