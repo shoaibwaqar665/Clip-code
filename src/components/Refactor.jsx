@@ -1,4 +1,3 @@
-// src/App.js
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { db, auth } from '../FirebaseConfig'
