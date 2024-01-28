@@ -1,7 +1,7 @@
 // src/App.js
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
-import { db } from '../FirebaseConfig'
+import { db, auth } from '../FirebaseConfig'
 import { addDoc, collection, Timestamp, query, orderBy, onSnapshot, deleteDoc, doc, updateDoc } from 'firebase/firestore'
 import { v4 as uuidv4 } from 'uuid';
 
@@ -13,9 +13,15 @@ function Clip() {
 	const [selectedTodo, setSelectedTodo] = useState(null);
 	const [editableTodo, setEditableTodo] = useState({ title: '', text: '', index: -1 });
 	const [newTodo, setNewTodo] = useState({ title: '', text: '' });
-	const [tasks, setTasks] = useState([])
+	const [user, setUser] = useState(null);
 	const value = collection(db, "Clip-code")
 	const guid = uuidv4();
+
+	const getCurrentUser = () => {
+		const user = auth.currentUser;
+		setUser(user);
+		return user;
+	};
 
 	const openDetailModal = (todo) => {
 		setSelectedTodo(todo);
@@ -154,7 +160,7 @@ function Clip() {
 				onClick={openAddModal}
 				className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300"
 			>
-				Add Todo
+				Add Code
 			</button>
 
 			<div className="mt-6">
