@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
 	apiKey: "AIzaSyDGlcVvWTJ4XrpqHovDKon0RkyUJPhG5Ik",
@@ -11,19 +11,25 @@ const firebaseConfig = {
 	appId: "1:795496571169:web:036207f7a37bcdeeb41e60",
 };
 
-// Initialize Firebase
-let db, auth;
+class Firebase {
+	static instance;
 
-try {
-	const app = initializeApp(firebaseConfig);
-	db = getFirestore(app);
-	auth = getAuth(app);
-
-	// Your code using the 'app' and 'db' variables goes here
-
-	console.log("Firebase initialization successful");
-} catch (error) {
-	console.error("Error initializing Firebase:", error.message);
+	constructor() {
+		if (Firebase.instance) {
+			return Firebase.instance;
+		}
+		this.app = initializeApp(firebaseConfig);
+		this.db = getFirestore(this.app);
+		this.auth = getAuth(this.app);
+		Firebase.instance = this;
+	}
 }
 
-export { db, auth, createUserWithEmailAndPassword, signInWithEmailAndPassword };
+const firebaseInstance = new Firebase();
+
+// Export Firebase services for use in other parts of the application
+export const db = firebaseInstance.db;
+export const auth = firebaseInstance.auth;
+
+// Export Firebase auth functions directly for convenience
+export { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
