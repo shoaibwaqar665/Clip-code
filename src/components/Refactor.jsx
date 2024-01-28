@@ -54,7 +54,6 @@ function Clip() {
 
 			console.log("Todo updated successfully");
 
-			// Update the todo in the local state
 			const updatedTodo = { ...todos[index], title, text };
 			const newTodos = [...todos];
 			newTodos[index] = updatedTodo;
@@ -86,7 +85,7 @@ function Clip() {
 		if (newTodo.title && newTodo.text) {
 			setTodos([...todos, newTodo]);
 			handleSave();
-			setNewTodo({ title: '', text: '' }); // Reset new todo
+			setNewTodo({ title: '', text: '' });
 			closeAddModal();
 		}
 	}
@@ -122,18 +121,18 @@ function Clip() {
 	};
 
 	const handleSave = async () => {
-		if (!user) return; // Ensure there is a user before proceeding
+		if (!user) return; 
 
 		try {
 			await addDoc(collection(db, "Clip-code"), {
 				text: newTodo.text,
 				title: newTodo.title,
-				userId: user.uid, // Link Todo to the user
+				userId: user.uid, 
 				date_created: Timestamp.now(),
 				is_deleted: false
 			});
-			setNewTodo({ title: '', text: '' }); // Reset new todo
-			handleGetData(user?.uid); // Refresh the Todos list
+			setNewTodo({ title: '', text: '' }); 
+			handleGetData(user?.uid); 
 		} catch (err) {
 			console.error(err);
 		}
