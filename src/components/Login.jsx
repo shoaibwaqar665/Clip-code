@@ -13,13 +13,32 @@ const Login = () => {
 		e.preventDefault();
 		try {
 			await signInWithEmailAndPassword(auth, email, password);
-			setEmail('');
-			setPassword('');
-			setLoginError('');
 			navigate('/todo');
 		} catch (error) {
-			setLoginError(error.message);
+			console.error("Login Error:", error.code);
+			parseFirebaseErrors(error.code); 
 		}
+	};
+
+	// Function to parse Firebase error codes
+	const parseFirebaseErrors = (errorCode) => {
+		let errorMessage = "An unexpected error occurred. Please try again.";
+		switch (errorCode) {
+			case "auth/user-not-found":
+				errorMessage = "No user found with this email.";
+				break;
+			case "auth/wrong-password":
+				errorMessage = "Incorrect password. Please try again.";
+				break;
+			case "auth/invalid-credential":
+				errorMessage = "The email address is not valid.";
+				break;
+			case "auth/too-many-requests":
+				errorMessage = "auth/too-many-requests. Refresh your page";
+				break;
+			
+		}
+		setLoginError(errorMessage);
 	};
 
 	return (
