@@ -80,15 +80,17 @@ const Signup = () => {
 					value={formData.password}
 				/>
 
-				<button type="submit" className="btn btn-success mybtn2 px-4 py-2 bg-green-500 text-white" disabled={isLoading}>
-					{isLoading ? 'REGISTERING...' : 'REGISTER'}
-				</button>
+				<div className="flex justify-center items-center">
+					<button type="submit" className="btn btn-success mybtn2 px-4 py-2 bg-green-500 text-white" disabled={isLoading}>
+						{isLoading ? 'REGISTERING...' : 'REGISTER'}
+					</button>
+				</div>
+
+				<span className="text-gray-600 text-center mt-4 block">
+					Already have an account? Login <Link to="/login" className="text-blue-500">here</Link>
+				</span>
 			</form>
 			{registrationError && <div className="error-msg mt-4 text-red-500">{registrationError}</div>}
-
-			<span className="mt-4 block text-gray-600">
-				Already have an account? Login <Link to="/login" className="text-blue-500">here</Link>
-			</span>
 		</div>
 	);
 };
