@@ -47,51 +47,47 @@ const Signup = () => {
 	};
 
 	return (
-		<div className='container'>
-			<br />
-			<br />
-			<h2>REGISTER HERE</h2>
-			<br />
-			<form autoComplete="off" className='form-group' onSubmit={handleRegister}>
-				<label>Enter Full Name</label>
+		<div className="container mx-auto my-8 p-4 max-w-md bg-white shadow-md">
+			<h2 className="text-2xl font-semibold mb-4">REGISTER HERE</h2>
+			<form autoComplete="off" className="form-group" onSubmit={handleRegister}>
+				<label className="block mb-2">Enter Full Name</label>
 				<input
 					type="text"
-					className='form-control'
+					className="form-control mb-4 p-2 border rounded"
 					name="fullName"
 					required
 					onChange={handleInputChange}
 					value={formData.fullName}
 				/>
-				<br />
-				<label>Enter Email</label>
+
+				<label className="block mb-2">Enter Email</label>
 				<input
 					type="email"
-					className='form-control'
+					className="form-control mb-4 p-2 border rounded"
 					name="email"
 					required
 					onChange={handleInputChange}
 					value={formData.email}
 				/>
-				<br />
-				<label>Enter Password</label>
+
+				<label className="block mb-2">Enter Password</label>
 				<input
 					type="password"
-					className='form-control'
+					className="form-control mb-4 p-2 border rounded"
 					name="password"
 					required
 					onChange={handleInputChange}
 					value={formData.password}
 				/>
-				<br />
-				<button type="submit" className='btn btn-success mybtn2' disabled={isLoading}>
+
+				<button type="submit" className="btn btn-success mybtn2 px-4 py-2" disabled={isLoading}>
 					{isLoading ? 'REGISTERING...' : 'REGISTER'}
 				</button>
 			</form>
-			{registrationError && <div className='error-msg'>{registrationError}</div>}
+			{registrationError && <div className="error-msg mt-4 text-red-500">{registrationError}</div>}
 
-			<span>
-				Already have an account? Login
-				<Link to="/login"> here</Link>
+			<span className="mt-4 block">
+				Already have an account? Login <Link to="/login" className="text-blue-500">here</Link>
 			</span>
 		</div>
 	);
