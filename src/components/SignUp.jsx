@@ -17,7 +17,7 @@ const Signup = () => {
 		const { name, value } = e.target;
 		setFormData((prevData) => ({ ...prevData, [name]: value }));
 	};
-
+	const navigate = useNavigate();
 	const handleRegister = async (e) => {
 		e.preventDefault();
 		try {
