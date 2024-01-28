@@ -100,6 +100,7 @@ function Clip() {
 		}
 	}
 	const copyToClipboard = text => {
+		console.log(text," the text")
 		navigator.clipboard.writeText(text).then(() => {
 			alert('text copied to clipboard!');
 		}, err => {
@@ -205,7 +206,7 @@ function Clip() {
 						<p className="text-gray-600">{selectedTodo?.data?.text}</p>
 					</div>
 					<button
-						onClick={() => copyToClipboard(selectedTodo?.text)}
+						onClick={() => copyToClipboard(selectedTodo?.data?.text)}
 						className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded-lg mr-4 transition duration-300"
 					>
 						Copy text
