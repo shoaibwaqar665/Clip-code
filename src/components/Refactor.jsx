@@ -2,9 +2,9 @@
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { db, auth } from '../FirebaseConfig'
-import { addDoc, collection, Timestamp, query, orderBy, onSnapshot, deleteDoc, doc, updateDoc } from 'firebase/firestore'
+import { addDoc, collection, Timestamp, query, orderBy, onSnapshot, deleteDoc, doc, updateDoc, where } from 'firebase/firestore'
 import { v4 as uuidv4 } from 'uuid';
-
+import { onAuthStateChanged } from 'firebase/auth';
 function Clip() {
 	const [todos, setTodos] = useState([]);
 	const [detailModalIsOpen, setDetailModalIsOpen] = useState(false);
@@ -68,7 +68,7 @@ function Clip() {
 			setTodos(newTodos);
 
 			closeEditModal();
-			handleGetData();
+			handleGetData(user?.uid);
 		} catch (error) {
 			console.error("Error updating todo: ", error);
 		}
@@ -103,6 +103,7 @@ function Clip() {
 			await deleteDoc(doc(db, "Clip-code", textGuid));
 			console.log("Document successfully deleted!");
 			setTodos(todos.filter((todo) => todo?.id !== textGuid));
+			handleGetData(user?.uid);
 		} catch (error) {
 			console.error("Error removing document: ", error);
 		}
@@ -128,31 +129,44 @@ function Clip() {
 	};
 
 	const handleSave = async () => {
+		if (!user) return; // Ensure there is a user before proceeding
+
 		try {
-			await addDoc(value, {
+			await addDoc(collection(db, "Clip-code"), {
 				text: newTodo.text,
 				title: newTodo.title,
-				text_guid: guid,
+				userId: user.uid, // Link Todo to the user
 				date_created: Timestamp.now(),
 				is_deleted: false
 			});
-
+			setNewTodo({ title: '', text: '' }); // Reset new todo
+			handleGetData(user?.uid); // Refresh the Todos list
 		} catch (err) {
 			console.error(err);
 		}
-	}
-	const handleGetData = () => {
-		const q = query(collection(db, 'Clip-code'), orderBy('date_created', 'desc'))
+	};
+	
+	useEffect(() => {
+		const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+			setUser(currentUser);
+			if (currentUser) {
+				console.log("currnt user", currentUser?.uid)
+				handleGetData(currentUser?.uid);
+			}
+		});
+		return () => unsubscribe();
+	}, []);
+	console.log("currnt user", user?.uid)
+	const handleGetData = (userId) => {
+		const q = query(collection(db, 'Clip-code'), where('userId', '==', userId), orderBy('date_created', 'desc'));
 		onSnapshot(q, (querySnapshot) => {
 			setTodos(querySnapshot.docs.map(doc => ({
 				data: doc.data(),
 				id: doc.id,
-			})))
-		})
-	}
-	useEffect(() => {
-		handleGetData()
-	}, [])
+			})));
+		});
+	};
+
 
 	return (
 		<div className="container mx-auto px-4 sm:px-6 lg:px-8 min-h-screen">
