@@ -50,27 +50,27 @@ const Signup = () => {
 		<div className="container mx-auto my-8 p-4 max-w-md bg-white shadow-md">
 			<h2 className="text-2xl font-semibold mb-4">REGISTER HERE</h2>
 			<form autoComplete="off" className="form-group" onSubmit={handleRegister}>
-				<label className="block mb-2">Enter Full Name</label>
+				<label className="block mb-2 text-gray-600">Enter Full Name</label>
 				<input
 					type="text"
-					className="form-control mb-4 p-2 border rounded"
+					className="form-control mb-2 p-2 border rounded"
 					name="fullName"
 					required
 					onChange={handleInputChange}
 					value={formData.fullName}
 				/>
 
-				<label className="block mb-2">Enter Email</label>
+				<label className="block mb-2 text-gray-600">Enter Email</label>
 				<input
 					type="email"
-					className="form-control mb-4 p-2 border rounded"
+					className="form-control mb-2 p-2 border rounded"
 					name="email"
 					required
 					onChange={handleInputChange}
 					value={formData.email}
 				/>
 
-				<label className="block mb-2">Enter Password</label>
+				<label className="block mb-2 text-gray-600">Enter Password</label>
 				<input
 					type="password"
 					className="form-control mb-4 p-2 border rounded"
@@ -80,13 +80,13 @@ const Signup = () => {
 					value={formData.password}
 				/>
 
-				<button type="submit" className="btn btn-success mybtn2 px-4 py-2" disabled={isLoading}>
+				<button type="submit" className="btn btn-success mybtn2 px-4 py-2 bg-green-500 text-white" disabled={isLoading}>
 					{isLoading ? 'REGISTERING...' : 'REGISTER'}
 				</button>
 			</form>
 			{registrationError && <div className="error-msg mt-4 text-red-500">{registrationError}</div>}
 
-			<span className="mt-4 block">
+			<span className="mt-4 block text-gray-600">
 				Already have an account? Login <Link to="/login" className="text-blue-500">here</Link>
 			</span>
 		</div>
