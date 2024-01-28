@@ -1,8 +1,8 @@
 import './App.css'
 import Login from './components/Login';
 import Clip from './components/Refactor';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import SignUp from './components/SignUp';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 function App() {
 
@@ -10,9 +10,9 @@ function App() {
       <>
          {/* <Clip/> */}
          <Routes>
-            <Route path="/" element={< Login />} />
+            <Route path="/" element={< SignUp />} />
             <Route path="/todo" element={< Clip />} />
-            <Route path="/signup" element={< SignUp />} />
+            {/* <Route path="/signup" element={< SignUp />} /> */}
            
          </Routes>
       </>
