@@ -81,7 +81,7 @@ const Signup = () => {
 				/>
 
 				<div className="flex justify-center items-center">
-					<button type="submit" className="btn btn-success mybtn2 px-4 py-2 bg-green-500 text-white" disabled={isLoading}>
+					<button type="submit" className="btn btn-success mybtn2 px-4 py-2 bg-green-500 text-white rounded" disabled={isLoading}>
 						{isLoading ? 'REGISTERING...' : 'REGISTER'}
 					</button>
 				</div>
