@@ -27,9 +27,6 @@ class Firebase {
 
 const firebaseInstance = new Firebase();
 
-// Export Firebase services for use in other parts of the application
 export const db = firebaseInstance.db;
 export const auth = firebaseInstance.auth;
-
-// Export Firebase auth functions directly for convenience
 export { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
