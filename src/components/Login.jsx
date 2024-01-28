@@ -1,23 +1,22 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { Link, useNavigate } from 'react-router-dom'; 
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../FirebaseConfig';
 
 const Login = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [loginError, setLoginError] = useState('');
+	const navigate = useNavigate(); 
 
 	const handleLogin = async (e) => {
 		e.preventDefault();
-		const auth = getAuth();
-
 		try {
 			await signInWithEmailAndPassword(auth, email, password);
 			setEmail('');
 			setPassword('');
 			setLoginError('');
-			// Redirect to another page if needed
-			// props.history.push('/');
+			navigate('/todo');
 		} catch (error) {
 			setLoginError(error.message);
 		}
@@ -44,9 +43,9 @@ const Login = () => {
 					onChange={(e) => setPassword(e.target.value)}
 					value={password}
 				/>
-
-				<button type="submit" className="btn btn-success mybtn2 px-4 py-2 bg-green-500 text-white">
-					<Link to="/todo" >LOGIN</Link>
+				<br />
+				<button type="submit" className="btn btn-success mybtn2 px-4 py-2 bg-green-500 text-white rounded-sm">
+					Login
 				</button>
 			</form>
 			{loginError && <div className="error-msg mt-4 text-red-500">{loginError}</div>}
