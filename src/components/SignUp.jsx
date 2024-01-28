@@ -87,7 +87,7 @@ const Signup = () => {
 				</div>
 
 				<span className="text-gray-600 text-center mt-4 block">
-					Already have an account? Login <Link to="/login" className="text-blue-500">here</Link>
+					Already have an account? Login <Link to="/" className="text-blue-500">here</Link>
 				</span>
 			</form>
 			{registrationError && <div className="error-msg mt-4 text-red-500">{registrationError}</div>}
