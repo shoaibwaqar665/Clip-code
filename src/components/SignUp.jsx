@@ -20,73 +20,79 @@ const Signup = () => {
 	const navigate = useNavigate();
 	const handleRegister = async (e) => {
 		e.preventDefault();
+		setIsLoading(true);
 		try {
-			setIsLoading(true);
-
-			const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
-			const user = userCredential.user;
-
-			const usersCollection = collection(db, 'user');
-			await addDoc(usersCollection, {
+			await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+			await addDoc(collection(db, 'user'), {
 				Name: formData.fullName,
 				Email: formData.email,
 			});
-
-			setFormData({ fullName: '', email: '', password: '' });
-			setRegistrationError('');
-			setIsLoading(false);
 			navigate('/todo');
 		} catch (error) {
 			setRegistrationError(error.message);
-			setIsLoading(false);
 		}
+		setIsLoading(false);
 	};
 
 	return (
-		<div className="container mx-auto my-8 p-4 max-w-md bg-white shadow-md">
-			<h2 className="text-2xl font-semibold mb-4">REGISTER HERE</h2>
-			<form autoComplete="off" className="form-group" onSubmit={handleRegister}>
-				<label className="block mb-2 text-gray-600">Enter Full Name</label>
-				<input
-					type="text"
-					className="form-control mb-2 p-2 border rounded"
-					name="fullName"
-					required
-					onChange={handleInputChange}
-					value={formData.fullName}
-				/>
-
-				<label className="block mb-2 text-gray-600">Enter Email</label>
-				<input
-					type="email"
-					className="form-control mb-2 p-2 border rounded"
-					name="email"
-					required
-					onChange={handleInputChange}
-					value={formData.email}
-				/>
-
-				<label className="block mb-2 text-gray-600">Enter Password</label>
-				<input
-					type="password"
-					className="form-control mb-4 p-2 border rounded"
-					name="password"
-					required
-					onChange={handleInputChange}
-					value={formData.password}
-				/>
-
-				<div className="flex justify-center items-center">
-					<button type="submit" className="btn btn-success mybtn2 px-4 py-2 bg-green-500 text-white rounded" disabled={isLoading}>
-						{isLoading ? 'REGISTERING...' : 'REGISTER'}
-					</button>
+		<div className="container mx-auto my-12 p-8 max-w-md bg-white rounded-lg shadow-xl">
+			<h2 className="text-3xl font-bold mb-6 text-center text-gray-800">Register Here</h2>
+			<form autoComplete="off" onSubmit={handleRegister}>
+				<div className="mb-4">
+					<label className="block text-gray-700 text-sm font-bold mb-2">Full Name</label>
+					<input
+						type="text"
+						name="fullName"
+						value={formData.fullName}
+						onChange={handleInputChange}
+						required
+						className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+					/>
 				</div>
 
-				<span className="text-gray-600 text-center mt-4 block">
-					Already have an account? Login <Link to="/" className="text-blue-500">here</Link>
-				</span>
+				<div className="mb-4">
+					<label className="block text-gray-700 text-sm font-bold mb-2">Email</label>
+					<input
+						type="email"
+						name="email"
+						value={formData.email}
+						onChange={handleInputChange}
+						required
+						className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+					/>
+				</div>
+
+				<div className="mb-6">
+					<label className="block text-gray-700 text-sm font-bold mb-2">Password</label>
+					<input
+						type="password"
+						name="password"
+						value={formData.password}
+						onChange={handleInputChange}
+						required
+						className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+					/>
+				</div>
+
+				<div className="flex items-center justify-center">
+					<button
+						type="submit"
+						disabled={isLoading}
+						className={`w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-colors duration-150 ${isLoading && 'opacity-50 cursor-not-allowed'}`}
+					>
+						{isLoading ? 'Registering...' : 'Register'}
+					</button>
+				</div>
 			</form>
-			{registrationError && <div className="error-msg mt-4 text-red-500">{registrationError}</div>}
+			{registrationError && (
+				<p className="text-red-500 text-xs italic mt-4">{registrationError}</p>
+			)}
+			<p className="mt-4 text-center">
+				Already have an account?{' '}
+				<Link to="/" className="text-blue-500 hover:text-blue-700">
+					Login
+				</Link>
+			</p>
 		</div>
 	);
 };
