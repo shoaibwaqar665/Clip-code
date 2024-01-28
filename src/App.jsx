@@ -10,9 +10,9 @@ function App() {
       <>
          {/* <Clip/> */}
          <Routes>
-            <Route path="/" element={< SignUp />} />
+            <Route path="/" element={< Login />} />
             <Route path="/todo" element={< Clip />} />
-            {/* <Route path="/signup" element={< SignUp />} /> */}
+            <Route path="/signup" element={< SignUp />} />
            
          </Routes>
       </>
